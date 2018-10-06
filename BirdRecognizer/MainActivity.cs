@@ -28,16 +28,20 @@
         public Android.Support.V7.Widget.Toolbar Toolbar { get; set; }
 
         private Button SelectPhotoButton
-            => _selectPhotoButton ?? (_selectPhotoButton = FindViewById<Button>(Resource.Id.select_photo_button));
+            => _selectPhotoButton ?? 
+                (_selectPhotoButton = FindViewById<Button>(Resource.Id.select_photo_button));
         
         private ImageView PhotoView
-            => _photoView ?? (_photoView = FindViewById<ImageView>(Resource.Id.photo));
+            => _photoView ?? 
+                (_photoView = FindViewById<ImageView>(Resource.Id.photo));
         
         private TextView ResultLabel
-            => _resultLabel ?? (_resultLabel = FindViewById<TextView>(Resource.Id.result_label));
+            => _resultLabel ?? 
+                (_resultLabel = FindViewById<TextView>(Resource.Id.result_label));
         
         private ProgressBar ProgressBar
-            => _progressBar ?? (_progressBar = FindViewById<ProgressBar>(Resource.Id.progressbar));
+            => _progressBar ?? 
+                (_progressBar = FindViewById<ProgressBar>(Resource.Id.progressbar));
         
         protected override void OnCreate(Bundle savedInstanceState)
         {
@@ -63,7 +67,8 @@
         {
             if (!CrossMedia.Current.IsTakePhotoSupported)
             {
-                Toast.MakeText(ApplicationContext, "Cannot select photos from the device.", ToastLength.Long).Show();
+                Toast.MakeText(ApplicationContext, 
+                    "Cannot select photos from the device.", ToastLength.Long).Show();
                 return;
             }
 
@@ -72,8 +77,10 @@
 
             try
             {
-                var image = await CrossMedia.Current.PickPhotoAsync(new PickMediaOptions { PhotoSize = PhotoSize.Medium });
-                var bitmap = await BitmapFactory.DecodeStreamAsync(image.GetStreamWithImageRotatedForExternalStorage());
+                var image = await CrossMedia.Current.PickPhotoAsync(
+                    new PickMediaOptions { PhotoSize = PhotoSize.Medium });
+                var bitmap = await BitmapFactory.DecodeStreamAsync(
+                    image.GetStreamWithImageRotatedForExternalStorage());
 
                 PhotoView.SetImageBitmap(bitmap);
 
@@ -91,7 +98,9 @@
             }
         }
 
-        public override void OnRequestPermissionsResult(int requestCode, string[] permissions, Permission[] grantResults)
-            => PermissionsImplementation.Current.OnRequestPermissionsResult(requestCode, permissions, grantResults);
+        public override void OnRequestPermissionsResult(
+            int requestCode, string[] permissions, Permission[] grantResults)
+            => PermissionsImplementation.Current.OnRequestPermissionsResult(
+                requestCode, permissions, grantResults);
     }
 }

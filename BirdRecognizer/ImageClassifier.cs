@@ -45,7 +45,7 @@
             const string OutputName = "loss";
 
             var outputNames = new[] { OutputName };
-            var floatValues = GetBitmapPixels(bitmap:);
+            var floatValues = GetBitmapPixels(bitmap);
             var outputs = new float[_labels.Count];
 
             _inferenceInterface.Feed(InputName, floatValues, 1, InputSize, InputSize, ColorDimensions);
@@ -68,7 +68,8 @@
                 using (var resizedBitmap = scaledBitmap.Copy(Bitmap.Config.Argb8888, false))
                 {
                     var intValues = new int[InputSize * InputSize];
-                    resizedBitmap.GetPixels(intValues, 0, resizedBitmap.Width, 0, 0, resizedBitmap.Width, resizedBitmap.Height);
+                    resizedBitmap.GetPixels(intValues, 0, resizedBitmap.Width, 0, 0, 
+                        resizedBitmap.Width, resizedBitmap.Height);
 
                     for (var i = 0; i < intValues.Length; ++i)
                     {
